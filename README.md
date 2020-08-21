@@ -1,6 +1,6 @@
 # SIGAEC - Sistema de Gerenciamento de Artigos e Eventos Acadêmicos
 
-  > Este repositório é privado e necessidade de autorização para acesso.
+  > O sistema deste repositório ainda está em desenvolvimento e apenas tem fins educativos.
 
 Esse repositório será continuamente atualizado com o decorrer do curso.
 
