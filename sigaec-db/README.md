@@ -1,3 +1,5 @@
-Módulo de acesso
+# Módulo de acesso sigaec-db
 
-Em desenvolvimento com Sequelize e Express
+  > Ainda em desenvolvimento.
+
+Em desenvolvimento com Sequelize e Express.
