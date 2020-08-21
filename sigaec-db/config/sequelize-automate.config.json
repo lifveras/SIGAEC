@@ -1,0 +1,15 @@
+{
+  "dbOptions": {
+    "database": "sigaec_app",
+    "username": "root",
+    "password": "admin",
+    "dialect": "mysql",
+    "host": "localhost",
+    "port": 3306,
+    "logging": false
+  },
+  "options": {
+    "type": "js",
+    "dir": "models"
+  }
+}
