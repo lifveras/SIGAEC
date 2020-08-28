@@ -17,10 +17,19 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": "lgveras@sigaec-db",
+    "password": "Mago_2009",
+    "database": "sigaec_app",
+    "host": "sigaec-db.mysql.database.azure.com",
+    "dialect": "mysql",
+    "ssl": true,
+    "dialectOptions": {
+      "ssl": {
+        "require": true
+      }
+    },
+    "define": {
+      "timestamps": false
+    }
   }
 }

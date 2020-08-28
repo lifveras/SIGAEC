@@ -5,6 +5,9 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>-->
+    <!-- O router view apresenta no navegador o view selecionado. 
+    Deve estar configurado no arquivo de router em router/index.js
+    -->
     <router-view />
   </div>
 </template>

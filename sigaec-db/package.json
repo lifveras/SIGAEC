@@ -4,6 +4,7 @@
   "description": "Módulo para acesso ao banco de dados da aplicaçção SIGAEC",
   "main": "index.js",
   "scripts": {
+    "start": "env NODE_ENV=production node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

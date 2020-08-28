@@ -37,6 +37,6 @@ app.get("/endereco/:id", (request, response) => {
 
 //Inicia o servidor express
 //Execute o comando "node. index.js" para inicia-lo
-app.listen(8888, (request, response) => {
+app.listen(8080, (request, response) => {
   console.log("[sigaec-db] Estamos no ar e ao vivo!!");
 });
