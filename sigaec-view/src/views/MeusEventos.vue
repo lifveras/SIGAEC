@@ -71,7 +71,7 @@ import MeuEventoEditor from "@/components/MeuEventoEditor";
 export default {
   name: "MeusEventos",
   components: {
-    EditEvento
+    MeuEventoEditor
   },
   data() {
     return {
@@ -158,7 +158,7 @@ export default {
     //axios
     this.$http
       //.get(url + eventPath)
-      .get(eventPath)
+      .get("/eventoacademico")
       .then(response => {
         response.data.forEach(item => {
           //Campos do endereço
