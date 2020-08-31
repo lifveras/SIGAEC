@@ -1,8 +1,6 @@
-const {
-  DataTypes
-} = require('sequelize');
+const { DataTypes } = require("sequelize");
 
-module.exports = sequelize => {
+module.exports = (sequelize) => {
   const attributes = {
     publicacaoAcademicaId: {
       type: DataTypes.INTEGER(11),
@@ -14,30 +12,30 @@ module.exports = sequelize => {
       field: "publicacaoAcademicaId",
       references: {
         key: "publicacaoAcademicaId",
-        model: "publicacaoacademica_model"
-      }
+        model: "publicacaoacademica_model",
+      },
     },
-    início: {
-      type: DataTypes.DATEONLY,
+    inicio: {
+      type: DataTypes.DATE,
       allowNull: false,
       defaultValue: null,
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "início"
+      field: "inicio",
     },
-    término: {
-      type: DataTypes.DATEONLY,
+    termino: {
+      type: DataTypes.DATE,
       allowNull: false,
       defaultValue: null,
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "término"
+      field: "termino",
     },
     enderecoId: {
       type: DataTypes.INTEGER(11),
-      allowNull: false,
+      allowNull: true,
       defaultValue: null,
       primaryKey: false,
       autoIncrement: false,
@@ -45,20 +43,26 @@ module.exports = sequelize => {
       field: "enderecoId",
       references: {
         key: "enderecoId",
-        model: "endereco_model"
-      }
-    }
+        model: "endereco_model",
+      },
+    },
   };
   const options = {
     tableName: "eventoacademico",
     comment: "",
-    indexes: [{
-      name: "enderecoId",
-      unique: false,
-      type: "BTREE",
-      fields: ["enderecoId"]
-    }]
+    indexes: [
+      {
+        name: "enderecoId",
+        unique: false,
+        type: "BTREE",
+        fields: ["enderecoId"],
+      },
+    ],
   };
-  const EventoacademicoModel = sequelize.define("eventoacademico_model", attributes, options);
+  const EventoacademicoModel = sequelize.define(
+    "eventoacademico_model",
+    attributes,
+    options
+  );
   return EventoacademicoModel;
 };

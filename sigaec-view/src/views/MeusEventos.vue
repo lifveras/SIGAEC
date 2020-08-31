@@ -1,8 +1,37 @@
 <template>
   <div class="meus-eventos">
     <h1>Meus Eventos</h1>
-    <div>
-      <b-table striped hover :items="eventos" :fields="campos">
+    <b-button @click="createEventoModal()" variant="success">
+      <b-icon icon="file-earmark-plus"></b-icon>
+    </b-button>
+
+    <section v-if="errored">
+      <p>Não estamos conseguindo acessar seus Evento no momento!</p>
+    </section>
+
+    <div v-else>
+      <b-alert
+        :show="editModal.eventoCreated"
+        dismissible
+        fade
+        variant="success"
+      >Evento salvo com sucesso!</b-alert>
+      <b-alert
+        :show="editModal.eventoEdited"
+        dismissible
+        fade
+        variant="warning"
+      >Evento editado com sucesso!</b-alert>
+      <b-alert
+        :show="editModal.eventoError"
+        dismissible
+        fade
+        variant="error"
+      >Erro com a operação de Evento</b-alert>
+
+      <div v-if="loading">Carregando...</div>
+
+      <b-table v-else striped hover :items="eventos" :fields="campos">
         <template v-slot:cell(editar)="linha">
           <b-button v-on:click="editEventoModal(linha.item)">Editar evento</b-button>
           <!-- <b-button v-on:click="imprimir(linha.item.publicacaoAcademicaId)">Editar evento</b-button> -->
@@ -25,17 +54,22 @@
       ok-only
       ok-title="Cancelar"
     >
-      <EditEvento @exit="closeModal" :evento="editModal.content" :modalTarget="editModal.id"></EditEvento>
+      <EditEvento
+        @exit="closeModal"
+        :evento="editModal.content"
+        :callback="editModal.callback"
+        :modalTarget="editModal.id"
+      ></EditEvento>
       <!-- <pre>{{ editModal.content }}</pre> -->
     </b-modal>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 import EditEvento from "@/components/EditEvento";
 
-const url = "https://1d92fc4d-d759-40d0-9b59-369a1c08a054.mock.pstmn.io/";
+// const url = "https://1d92fc4d-d759-40d0-9b59-369a1c08a054.mock.pstmn.io/";
 const eventPath = "eventoacademico?cadastroId=1&offset=1&limit=10";
 
 // function insertButtonEditColumn(eventos, campos) {
@@ -64,29 +98,85 @@ export default {
       editModal: {
         id: "edit-modal",
         title: "Edite seu evento",
-        content: ""
-      }
+        content: "",
+        callback: "",
+        eventoCreated: false,
+        eventoEdited: false,
+        eventoError: false
+      },
+      errored: false,
+      loading: true
     };
   },
   methods: {
     imprime(id) {
       console.log(id);
     },
-    editEventoModal(evento) {
-      //this.editModal.content = JSON.stringify(evento);
-      this.editModal.content = evento;
+    createEventoModal() {
+      this.editModal.title = "Crie um novo Evento";
+      this.editModal.content = null;
+
+      //Callback para enviar o evento via POST
+      this.editModal.callback = (event, data) => {
+        this.$http
+          .post("/eventoacademico", data.evento_model)
+          .then(response => {
+            //if (response.data.nome === data.editEventoData.nome) {
+            console.log("Criado com sucesso!", response.data);
+            this.editModal.eventoCreated = true;
+            //this.mounted();
+            //}
+          })
+          .catch(error => {
+            console.log(error);
+            this.editModal.eventoError = true;
+          })
+          .finally(() => {});
+      };
+
       this.$root.$emit("bv::show::modal", this.editModal.id);
     },
+    editEventoModal(evento) {
+      //this.editModal.content = JSON.stringify(evento);
+      this.editModal.title = 'Edite o Evento "' + evento.nome + '"';
+      this.editModal.content = evento;
+
+      //Callback para editar o evento via PUT
+      this.editModal.callback = (event, data) => {
+        this.$http
+          .put("/eventoacademico", data.evento_model)
+          .then(response => {
+            //if (response.data.nome === data.editEventoData.nome) {
+            console.log("Editado com sucesso!", response.data);
+            this.editModal.eventoEdited = true;
+            //}
+          })
+          .catch(error => {
+            console.log(error);
+            this.editModal.eventoError = true;
+          })
+          .finally(() => {});
+      };
+
+      this.$root.$emit("bv::show::modal", this.editModal.id);
+    },
+
     resetEditModal() {
       this.editModal.content = "";
+      this.editModal.eventoCreated = false;
+      this.editModal.eventoEdited = false;
+      this.editModal.callback = null;
+      this.editModal.eventoError = false;
     },
     closeModal() {
       this.$bvModal.hide(this.editModal.id);
     }
   },
   mounted() {
-    axios
-      .get(url + eventPath)
+    //axios
+    this.$http
+      //.get(url + eventPath)
+      .get(eventPath)
       .then(response => {
         response.data.forEach(item => {
           //Campos do endereço
@@ -115,11 +205,22 @@ export default {
 
         //insertButtonEditColumn(this.eventos, this.campos);
       })
-      .catch(error =>
-        console.log("Error fetching in 'MeusEventos' page: ", error)
-      );
+      .catch(error => {
+        console.log("Error fetching in 'MeusEventos' page: ", error);
+        this.errored = true;
+      })
+      .finally(() => (this.loading = false));
   }
 };
 </script>
 
-<style></style>
+<style>
+.meus-eventos h1 {
+  display: inline;
+}
+
+.meus-eventos button {
+  margin-left: 4px;
+  margin-bottom: 10px;
+}
+</style>

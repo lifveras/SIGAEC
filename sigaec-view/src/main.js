@@ -5,12 +5,17 @@ import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import router from "./router";
+import api from "./api.js";
 
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 
 Vue.config.productionTip = false;
+
+// $ é uma convenção que o Vue usa para indicar que aquela
+//variavel estará diponível em todas as instâncias do Vue.
+Vue.prototype.$http = api;
 
 new Vue({
   router,

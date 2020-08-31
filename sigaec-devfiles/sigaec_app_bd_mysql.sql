@@ -98,8 +98,8 @@ CREATE TABLE `MembroDeEquipe` (
 
 CREATE TABLE `EventoAcademico` (
   `publicacaoAcademicaId` integer PRIMARY KEY,
-  `início` date NOT NULL,
-  `término` date NOT NULL,
+  `inicio` date NOT NULL,
+  `termino` date NOT NULL,
   `enderecoId`  integer NOT NULL,
    FOREIGN KEY(publicacaoAcademicaId) REFERENCES PublicacaoAcademica(publicacaoAcademicaId) ON DELETE CASCADE,
    FOREIGN KEY(enderecoId) REFERENCES Endereco(enderecoId) ON DELETE CASCADE

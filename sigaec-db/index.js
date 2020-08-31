@@ -1,5 +1,6 @@
 const express = require("express");
 const models = require("./models");
+const routes = require("./routes");
 
 //Cria um aplicativo express
 const app = express();
@@ -12,6 +13,9 @@ const Endereco = models.endereco_model;
 
 //Habilita o middleware que converte o corpo da requisição para JSON
 app.use(express.json());
+
+//Configura as rotas dentro da aplicação express.
+app.use("/api", routes);
 
 //Exemplo de POST para um endereco
 app.post("/endereco", (request, response) => {
