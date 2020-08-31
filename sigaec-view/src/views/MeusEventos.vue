@@ -54,37 +54,19 @@
       ok-only
       ok-title="Cancelar"
     >
-      <EditEvento
+      <MeuEventoEditor
         @exit="closeModal"
         :evento="editModal.content"
         :callback="editModal.callback"
         :modalTarget="editModal.id"
-      ></EditEvento>
-      <!-- <pre>{{ editModal.content }}</pre> -->
+      ></MeuEventoEditor>
     </b-modal>
   </div>
 </template>
 
 <script>
 // import axios from "axios";
-import EditEvento from "@/components/EditEvento";
-
-// const url = "https://1d92fc4d-d759-40d0-9b59-369a1c08a054.mock.pstmn.io/";
-const eventPath = "eventoacademico?cadastroId=1&offset=1&limit=10";
-
-// function insertButtonEditColumn(eventos, campos) {
-//   campos.push("editar");
-
-//   eventos.forEach(item => {
-//     let buttonEdit = document.createElement("button");
-//     buttonEdit.title = "Editar evento";
-//     buttonEdit.addEventListener("click", () => {
-//       console.log(item.publicacaoAcademicaId);
-//     });
-//     console.log(item);
-//     //item.editar = buttonEdit;
-//   });
-// }
+import MeuEventoEditor from "@/components/MeuEventoEditor";
 
 export default {
   name: "MeusEventos",
@@ -192,7 +174,6 @@ export default {
 
           item.endereco = enderecoConcat;
 
-          //console.log(this.eventos)
           this.eventos.push(item);
         });
 
@@ -200,10 +181,6 @@ export default {
         this.campos = tempCampos.slice(1, 6);
 
         this.campos.push("editar");
-        // console.log(this.campos);
-        // console.log(this.eventos);
-
-        //insertButtonEditColumn(this.eventos, this.campos);
       })
       .catch(error => {
         console.log("Error fetching in 'MeusEventos' page: ", error);
