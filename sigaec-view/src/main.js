@@ -6,10 +6,12 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import router from "./router";
 import api from "./api.js";
+import VueCookies from "vue-cookies";
 
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
+Vue.use(VueCookies);
 
 Vue.config.productionTip = false;
 

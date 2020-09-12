@@ -13,6 +13,7 @@
             <b-icon v-bind:icon="item.icon"></b-icon>
             <span>{{ item.name }}</span>
           </b-nav-item>
+          <a href="" @click="logout">Logout</a>
           <!-- <b-nav-item active>
             <b-icon icon="house-fill"></b-icon>Home
           </b-nav-item>
@@ -51,6 +52,16 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    logout() {
+      this.$http
+        .get("/api/logout")
+        .then(() => {
+          this.$router.push("/");
+        })
+        .catch((errors) => console.error(errors));
+    },
   },
 };
 </script>

@@ -3,12 +3,20 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import TrabalhosAcademicos from "../views/TrabalhosAcademicos.vue";
 import MeusEventos from "../views/MeusEventos.vue";
+import Login from "../views/Login.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
+    name: "Login",
+    component: Login,
+    meta: { notRenderMenu: true },
+    children: [{ path: "login", meta: { notRenderMenu: true } }],
+  },
+  {
+    path: "/home",
     name: "Home",
     component: Home,
   },

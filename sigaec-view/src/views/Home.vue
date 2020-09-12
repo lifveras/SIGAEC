@@ -10,6 +10,31 @@
 
 export default {
   name: "home",
-  components: {}
+  data() {
+    return {
+      user: {
+        name: "Frank",
+      },
+    };
+  },
+
+  methods: {
+    getUserData() {
+      console.log(document.cookie);
+      this.$http
+        .get("/api/user")
+        .then((response) => {
+          console.log(response.data);
+          this.$set(this, "user", response.data.user);
+        })
+        .catch((errors) => {
+          console.log(errors);
+          this.$router.push("/");
+        });
+    },
+  },
+  mounted() {
+    this.getUserData();
+  },
 };
 </script>

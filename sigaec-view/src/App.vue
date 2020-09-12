@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <MenuLateral></MenuLateral>
+    <MenuLateral v-if="renderMenu()"></MenuLateral>
     <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
@@ -18,6 +18,15 @@ import MenuLateral from "@/components/MenuLateral.vue";
 export default {
   components: {
     MenuLateral
+  },
+  methods: {
+    renderMenu() {
+      console.log(this.$route.matched);
+      if (this.$route.matched.some(record => record.meta.notRenderMenu)) {
+        return false;
+      }
+      return true;
+    }
   }
 };
 </script>
