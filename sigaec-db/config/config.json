@@ -18,7 +18,7 @@
   },
   "production": {
     "username": "lgveras@sigaec-db",
-    "password": "Mago_2009",
+    "password": "abcd1234.",
     "database": "sigaec_app",
     "host": "sigaec-db.mysql.database.azure.com",
     "dialect": "mysql",
